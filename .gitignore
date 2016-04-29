@@ -1,0 +1,8 @@
+#IntelliJ Stuff
+*.iml
+
+# TODO address this
+*.pyc
+
+#pip install -e
+*.egg*
