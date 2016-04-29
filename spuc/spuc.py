@@ -2,7 +2,7 @@ import click
 import logging
 
 import utils
-from services import gapps_handler, jira_handler
+from services import gapps_handler, jira_handler, aws
 
 
 class Spuc(object):
