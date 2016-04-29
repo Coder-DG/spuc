@@ -4,7 +4,7 @@ import json
 import aws
 import github
 import google
-import jira
+import jira_handler
 
 
 def load_json(url):
@@ -39,7 +39,7 @@ def create_user_jira():
         'username': 'test_username',
         'email': 'test@gigaspaces.com'
     }
-    response = jira.create_user(
+    response = jira_handler.create_user(
             new_user_dict,
             username=username,
             password=password
