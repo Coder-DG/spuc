@@ -1,25 +1,29 @@
 import click
+import logging
 
 import utils
-from services import google
+from services import gapps_handler, jira_handler
 
 
 class Spuc(object):
-    def __init__(self, config_path, user_config_path):
-        self.config_dict = utils.convert_file_to_yaml(
-                config_path)
-        self.user_config_dict = utils.convert_file_to_yaml(user_config_path)
+    def __init__(self, services_config, user_config):
+        self.user_config = utils.check_is_file_and_convert_from_yaml(
+                user_config)
+        self.services_config = \
+            utils.check_is_file_and_convert_from_yaml(services_config)
 
     def create_all(self):
-        credentials = utils.get_oauth_credentials(
-                credential_config_dict=self.config_dict['gapps'],
-                scopes=utils.GOOGLE_SCOPES,
-                name_prefix='google'
+        response = gapps_handler.create_user(
+                self.user_config_dict['gapps'],
+                self.services_config['gapps']
         )
+        logging.debug(response)
 
-        print google.create_user(self.user_config_dict['gapps'],
-                                 credentials
-                                 )
+        response = jira_handler.create_user(
+                self.user_config_dict['jira'],
+                self.services_config['jira'],
+        )
+        logging.debug(response)
 
 
 @click.group()
@@ -33,20 +37,37 @@ def gapps():
 
 
 @gapps.command(name='create')
-@click.option('-c', '--credential-config-path',
-              help='The path to admin credential file.',
+@click.option('-c', '--config-path',
+              help='The path to the config file.',
               required=True)
-@click.option('-u', '--user-yaml-path',
+@click.option('-u', '--user-config-path',
               help='The path to the user yaml config file.',
               required=True)
-def create_user_google(credential_config_path, user_yaml_path):
-    google.create_user(
-            utils.convert_file_to_yaml(user_yaml_path)['gapps'],
-            utils.get_oauth_credentials(
-                    utils.convert_file_to_yamlcredential_config_path)[
-                'gapps'],
-            utils.GOOGLE_SCOPES,
-            'google'
+def create_user_google(config_path, user_config_path):
+    response = gapps_handler.create_user(
+            user_config_path,
+            config_path
     )
+    logging.debug(response)
+
+
+@main.group()
+def jira():
+    pass
+
+
+@jira.command(name='create')
+@click.option('-c', '--config-path',
+              help='The path to the config file.',
+              required=True)
+@click.option('-u', '--user-config-path',
+              help='The path to the user config file.',
+              required=True)
+def create_user_jira(config_path, user_config_path):
+    response = jira_handler.create_user(
+            user_config_path,
+            config_path
+    )
+    logging.debug(response)
 
 # TODO add add_command

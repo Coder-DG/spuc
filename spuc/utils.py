@@ -56,3 +56,9 @@ def create_credential_json(credential_dict):
 def convert_file_to_yaml(yaml_file_path):
     with open(str(yaml_file_path)) as yaml_file:
         return yaml.load(yaml_file)
+
+
+def check_is_file_and_convert_from_yaml(path):
+    if isinstance(path, basestring) and os.path.isfile(path):
+        return convert_file_to_yaml(path)
+    return path
