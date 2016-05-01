@@ -17,8 +17,8 @@ class User:
         self.credential_config = self.convert_file_to_yaml(
                 credential_config_path)
 
-
-    def get_oauth_credentials(self, credential_config_path, scopes, name_prefix):
+    def get_oauth_credentials(self, credential_config_path,
+                              scopes, name_prefix):
         """Gets valid user credentials from storage.
 
         If nothing has been stored, or if the stored credentials are invalid,
