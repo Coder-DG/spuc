@@ -71,7 +71,7 @@ class User:
 
     def convert_file_to_yaml(self, yaml_file_path):
         with open(str(yaml_file_path)) as yaml_file:
-            return json.load(yaml_file)
+            return yaml.load(yaml_file)
 
 
 @click.group()
