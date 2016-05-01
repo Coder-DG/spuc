@@ -1,4 +1,4 @@
-import json
+import yaml
 import os
 
 import click
