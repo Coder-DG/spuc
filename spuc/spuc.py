@@ -92,11 +92,11 @@ def main():
 
 
 @main.group()
-def googleapps():
+def gapps():
     pass
 
 
-@googleapps.command(name='create')
+@gapps.command(name='create')
 @click.option('-c', '--credential-config-path',
               help='The path to user credential file.',
               required=True)
