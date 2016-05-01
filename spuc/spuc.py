@@ -55,7 +55,7 @@ class User:
 
     def create_in_google(self, user_yaml_path):
         credentials = self.get_oauth_credentials(
-                credential_config_dict=self.credential_config,
+                credential_config_dict=self.credential_config['gapps'],
                 scopes=GOOGLE_SCOPES,
                 name_prefix='google'
         )
