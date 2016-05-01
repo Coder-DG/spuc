@@ -50,7 +50,7 @@ class User:
 
     def create_in_google(self, user_yaml_path):
         credentials = self.get_credentials(
-                credential_config_path=self.google_credential_path,
+                credential_config_path=self.credential_config_path,
                 scopes=GOOGLE_SCOPES,
                 name_prefix='google'
         )
