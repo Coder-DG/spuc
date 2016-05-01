@@ -89,7 +89,7 @@ def googleapps():
               help='The path to user credential file.',
               required=True)
 @click.option('-j', '--user-yaml-path',
-              help='The path to the user .json file.'
+              help='The path to the user yaml file.'
                    ' In this case, a Google user configuration.',
               required=True)
 def create_user_google(credential_config_path, user_yaml_path):
