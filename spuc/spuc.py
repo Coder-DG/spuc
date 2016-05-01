@@ -17,7 +17,7 @@ class User:
         self.credential_config = self.convert_file_to_yaml(
                 credential_config_path)
 
-    def get_oauth_credentials(self, credential_config_path,
+    def get_oauth_credentials(self, credential_config_dict,
                               scopes, name_prefix):
         """Gets valid user credentials from storage.
 
@@ -40,7 +40,7 @@ class User:
         credentials = store.get()
         if not credentials or credentials.invalid:
             flow = client.flow_from_clientsecrets(
-                    credential_config_path,
+                    credential_config_dict,
                     scopes
             )
             flow.user_agent = APPLICATION_NAME
@@ -51,7 +51,7 @@ class User:
 
     def create_in_google(self, user_yaml_path):
         credentials = self.get_oauth_credentials(
-                credential_config_path=self.credential_config,
+                credential_config_dict=self.credential_config,
                 scopes=GOOGLE_SCOPES,
                 name_prefix='google'
         )
