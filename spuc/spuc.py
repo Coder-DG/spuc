@@ -69,9 +69,9 @@ class User:
     def create_in_jira(self):
         pass
 
-    def convert_file_to_json(self, json_file_path):
-        with open(str(json_file_path)) as json_file:
-            return json.load(json_file)
+    def convert_file_to_yaml(self, yaml_file_path):
+        with open(str(yaml_file_path)) as yaml_file:
+            return json.load(yaml_file)
 
 
 @click.group()
