@@ -2,7 +2,7 @@ import click
 import logging
 
 import utils
-from services import gapps_handler, jira_handler, aws
+from services import gapps_handler, jira_handler, aws_handler
 
 
 class Spuc(object):
@@ -14,14 +14,20 @@ class Spuc(object):
 
     def create_all(self):
         response = gapps_handler.create_user(
-                self.user_config_dict['gapps'],
+                self.user_config['gapps'],
                 self.services_config['gapps']
         )
         logging.debug(response)
 
         response = jira_handler.create_user(
-                self.user_config_dict['jira'],
-                self.services_config['jira'],
+                self.user_config['jira'],
+                self.services_config['jira']
+        )
+        logging.debug(response)
+
+        response = aws_handler.create_user(
+                self.user_config['aws'],
+                self.services_config['aws']
         )
         logging.debug(response)
 
@@ -65,6 +71,27 @@ def jira():
               required=True)
 def create_user_jira(config_path, user_config_path):
     response = jira_handler.create_user(
+            user_config_path,
+            config_path
+    )
+
+    logging.debug(response)
+
+
+@main.group()
+def aws():
+    pass
+
+
+@aws.command(name='create')
+@click.option('-c', '--config-path',
+              help='The path to the config file.',
+              required=True)
+@click.option('-u', '--user-config-path',
+              help='The path to the user yaml config file.',
+              required=True)
+def create_user_aws(config_path, user_config_path):
+    response = aws_handler.create_user(
             user_config_path,
             config_path
     )
