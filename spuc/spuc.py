@@ -48,7 +48,7 @@ class User:
             print('Storing credentials to ' + credential_path)
         return credentials
 
-    def create_in_google(self, user_json_path):
+    def create_in_google(self, user_yaml_path):
         credentials = self.get_credentials(
                 credential_config_path=self.google_credential_path,
                 scopes=GOOGLE_SCOPES,
@@ -56,7 +56,7 @@ class User:
         )
 
         print google.create_user(
-                self.convert_file_to_json(user_json_path),
+                self.convert_file_to_yaml(user_yaml_path),
                 credentials
         )
 
