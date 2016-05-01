@@ -1,79 +1,29 @@
-import json
-import os
-
 import click
-from oauth2client import client
-from oauth2client import file
-from oauth2client import tools
+import logging
 
-from services import google
-
-GOOGLE_SCOPES = 'https://www.googleapis.com/auth/admin.directory.user'
-APPLICATION_NAME = 'User_Creator'
+import utils
+from services import gapps_handler, jira_handler
 
 
-class User:
-    def __init__(self, google_credential_path=None, jira_credential_path=None,
-                 github_credential_path=None):
-        self.google_credential_path = google_credential_path
-        self.jira_credential_path = jira_credential_path
-        self.github_credential_path = github_credential_path
+class Spuc(object):
+    def __init__(self, services_config, user_config):
+        self.user_config = utils.check_is_file_and_convert_from_yaml(
+                user_config)
+        self.services_config = \
+            utils.check_is_file_and_convert_from_yaml(services_config)
 
-    def get_credentials(self, credential_config_path, scopes, name_prefix):
-        """Gets valid user credentials from storage.
-
-        If nothing has been stored, or if the stored credentials are invalid,
-        the OAuth2 flow is completed to obtain the new credentials.
-
-        Returns:
-            Credentials, the obtained credential.
-        """
-        home_dir = os.path.expanduser('~')
-        credential_dir = os.path.join(home_dir, '.credentials')
-        if not os.path.exists(credential_dir):
-            os.makedirs(credential_dir)
-        credential_path = os.path.join(
-                credential_dir,
-                '{0}_credentials.json'.format(name_prefix)
+    def create_all(self):
+        response = gapps_handler.create_user(
+                self.user_config_dict['gapps'],
+                self.services_config['gapps']
         )
+        logging.debug(response)
 
-        store = file.Storage(credential_path)
-        credentials = store.get()
-        if not credentials or credentials.invalid:
-            flow = client.flow_from_clientsecrets(
-                    credential_config_path,
-                    scopes
-            )
-            flow.user_agent = APPLICATION_NAME
-            flags = tools.argparser.parse_args(args=[])
-            credentials = tools.run_flow(flow, store, flags)
-            print('Storing credentials to ' + credential_path)
-        return credentials
-
-    def create_in_google(self, user_json_path):
-        credentials = self.get_credentials(
-                credential_config_path=self.google_credential_path,
-                scopes=GOOGLE_SCOPES,
-                name_prefix='google'
+        response = jira_handler.create_user(
+                self.user_config_dict['jira'],
+                self.services_config['jira'],
         )
-
-        print google.create_user(
-                self.convert_file_to_json(user_json_path),
-                credentials
-        )
-
-    def create_in_aws(self):
-        pass
-
-    def create_in_github(self):
-        pass
-
-    def create_in_jira(self):
-        pass
-
-    def convert_file_to_json(self, json_file_path):
-        with open(str(json_file_path)) as json_file:
-            return json.load(json_file)
+        logging.debug(response)
 
 
 @click.group()
@@ -82,22 +32,42 @@ def main():
 
 
 @main.group()
-def googleapps():
+def gapps():
     pass
 
 
-@googleapps.command(name='create')
-@click.option('-c', '--credential-config-path',
-              help='The path to user credetial file.'
-                   ' In this case, the Google secret .json file.',
+@gapps.command(name='create')
+@click.option('-c', '--config-path',
+              help='The path to the config file.',
               required=True)
-@click.option('-j', '--user-json-path',
-              help='The path to the user .json file.'
-                   ' In this case, a Google user configuration.',
+@click.option('-u', '--user-config-path',
+              help='The path to the user yaml config file.',
               required=True)
-def create_user_google(credential_config_path, user_json_path):
-    user_google = User(
-            google_credential_path=credential_config_path
+def create_user_google(config_path, user_config_path):
+    response = gapps_handler.create_user(
+            user_config_path,
+            config_path
     )
+    logging.debug(response)
 
-    user_google.create_in_google(user_json_path)
+
+@main.group()
+def jira():
+    pass
+
+
+@jira.command(name='create')
+@click.option('-c', '--config-path',
+              help='The path to the config file.',
+              required=True)
+@click.option('-u', '--user-config-path',
+              help='The path to the user config file.',
+              required=True)
+def create_user_jira(config_path, user_config_path):
+    response = jira_handler.create_user(
+            user_config_path,
+            config_path
+    )
+    logging.debug(response)
+
+# TODO add add_command
