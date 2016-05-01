@@ -6,7 +6,7 @@ from oauth2client import client
 from oauth2client import file
 from oauth2client import tools
 
-from services import google
+from services import google, jira_handler
 
 GOOGLE_SCOPES = 'https://www.googleapis.com/auth/admin.directory.user'
 APPLICATION_NAME = 'User_Creator'
@@ -68,8 +68,13 @@ class User:
     def create_in_github(self):
         pass
 
-    def create_in_jira(self):
-        pass
+    def create_in_jira(self, user_json_path, jira_options_path):
+        credentials = self.convert_file_to_json(self.jira_credential_path)
+        print jira_handler.create_user(
+                user_json=self.convert_file_to_json(user_json_path),
+                credentials=credentials,
+                jira_options=self.convert_file_to_json(jira_options_path)
+        )
 
     def convert_file_to_json(self, json_file_path):
         with open(str(json_file_path)) as json_file:
@@ -88,7 +93,7 @@ def googleapps():
 
 @googleapps.command(name='create')
 @click.option('-c', '--credential-config-path',
-              help='The path to user credetial file.'
+              help='The path to user credential file.'
                    ' In this case, the Google secret .json file.',
               required=True)
 @click.option('-j', '--user-json-path',
@@ -101,3 +106,30 @@ def create_user_google(credential_config_path, user_json_path):
     )
 
     user_google.create_in_google(user_json_path)
+
+
+@main.group()
+def jira():
+    pass
+
+
+@jira.command(name='create')
+@click.option('-c', '--credential-config-path',
+              help='The path to user credential file.'
+                   ' In this case, the JIRA credentials .json file.',
+              required=True)
+@click.option('-j', '--user-json-path',
+              help='The path to the user .json file.'
+                   ' In this case, a JIRA user configuration.',
+              required=True)
+@click.option('-o', '--jira-options-path',
+              help='The path to the .json file that contains server and'
+                   ' properties for the client.',
+              required=True)
+def create_user_jira(credential_config_path, user_json_path,
+                     jira_options_path):
+    user_jira = User(
+            jira_credential_path=credential_config_path
+    )
+
+    user_jira.create_in_jira(user_json_path, jira_options_path)

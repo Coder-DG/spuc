@@ -1,7 +1,7 @@
 import unittest
 from click.testing import CliRunner
 
-import spuc.spuc
+from spuc import spuc
 
 
 class TestOAuth(unittest.TestCase):
@@ -10,8 +10,22 @@ class TestOAuth(unittest.TestCase):
         result = runner.invoke(spuc.main, [
             'googleapps',
             'create',
-            '-p/home/david/development/creds/client_secret.json',
-            '-u/home/david/development/jsons/google_user.json'
+            '-c/home/david/development/creds/client_secret.json',
+            '-j/home/david/development/jsons/google_user.json'
+        ])
+
+        assert result.exit_code == 0
+
+
+class TestJira(unittest.TestCase):
+    def test_user_create_with_correct_input(self):
+        runner = CliRunner()
+        result = runner.invoke(spuc.main, [
+            'jira',
+            'create',
+            '-c/home/david/development/creds/jira_creds.json',
+            '-j/home/david/development/jsons/jira_user.json',
+            '-o/home/david/development/creds/jira_options.json'
         ])
 
         assert result.exit_code == 0
