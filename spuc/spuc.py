@@ -96,7 +96,7 @@ def googleapps():
               required=True)
 def create_user_google(credential_config_path, user_yaml_path):
     user_google = User(
-            google_credential_path=credential_config_path
+            credential_config_path=credential_config_path
     )
 
     user_google.create_in_google(user_yaml_path)
