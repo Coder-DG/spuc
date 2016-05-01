@@ -16,7 +16,7 @@ APPLICATION_NAME = 'SPUC'
 
 class User:
     def __init__(self, credential_config_path=None):
-        self.credential_config = self.convert_file_to_yaml(
+        self.credential_config_dict = self.convert_file_to_yaml(
                 credential_config_path)
 
     def get_oauth_credentials(self, credential_config_dict,
@@ -55,7 +55,7 @@ class User:
 
     def create_in_google(self, user_yaml_path):
         credentials = self.get_oauth_credentials(
-                credential_config_dict=self.credential_config['gapps'],
+                credential_config_dict=self.credential_config_dict['gapps'],
                 scopes=GOOGLE_SCOPES,
                 name_prefix='google'
         )
