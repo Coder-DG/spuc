@@ -18,7 +18,7 @@ class User:
                 credential_config_path)
 
 
-    def get_credentials(self, credential_config_path, scopes, name_prefix):
+    def get_oauth_credentials(self, credential_config_path, scopes, name_prefix):
         """Gets valid user credentials from storage.
 
         If nothing has been stored, or if the stored credentials are invalid,
@@ -50,7 +50,7 @@ class User:
         return credentials
 
     def create_in_google(self, user_yaml_path):
-        credentials = self.get_credentials(
+        credentials = self.get_oauth_credentials(
                 credential_config_path=self.credential_config,
                 scopes=GOOGLE_SCOPES,
                 name_prefix='google'
