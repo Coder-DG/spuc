@@ -51,6 +51,7 @@ setup(
         "jira==1.0.3",
         "oauth2client==2.0.2",
         "requests==2.9.1",
-        "urllib3==1.15.1"
+        "urllib3==1.15.1",
+        "PyYAML==3.11"
     ]
 )
