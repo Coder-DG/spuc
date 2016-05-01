@@ -88,8 +88,7 @@ def googleapps():
 
 @googleapps.command(name='create')
 @click.option('-c', '--credential-config-path',
-              help='The path to user credetial file.'
-                   ' In this case, the Google secret .json file.',
+              help='The path to user credential file.',
               required=True)
 @click.option('-j', '--user-json-path',
               help='The path to the user .json file.'
