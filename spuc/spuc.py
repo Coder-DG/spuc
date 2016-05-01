@@ -9,7 +9,7 @@ from oauth2client import tools
 from services import google
 
 GOOGLE_SCOPES = 'https://www.googleapis.com/auth/admin.directory.user'
-APPLICATION_NAME = 'User_Creator'
+APPLICATION_NAME = 'SPUC'
 
 
 class User:
