@@ -1,5 +1,7 @@
 import yaml
+import json
 import os
+import tempfile
 
 import click
 from oauth2client import client
