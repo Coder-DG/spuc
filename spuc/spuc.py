@@ -94,9 +94,9 @@ def googleapps():
               help='The path to the user .json file.'
                    ' In this case, a Google user configuration.',
               required=True)
-def create_user_google(credential_config_path, user_json_path):
+def create_user_google(credential_config_path, user_yaml_path):
     user_google = User(
             google_credential_path=credential_config_path
     )
 
-    user_google.create_in_google(user_json_path)
+    user_google.create_in_google(user_yaml_path)
