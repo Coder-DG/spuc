@@ -13,11 +13,9 @@ APPLICATION_NAME = 'User_Creator'
 
 
 class User:
-    def __init__(self, google_credential_path=None, jira_credential_path=None,
-                 github_credential_path=None):
-        self.google_credential_path = google_credential_path
-        self.jira_credential_path = jira_credential_path
-        self.github_credential_path = github_credential_path
+    def __init__(self, credential_config_path=None):
+        self.credential_config_path = credential_config_path
+
 
     def get_credentials(self, credential_config_path, scopes, name_prefix):
         """Gets valid user credentials from storage.
