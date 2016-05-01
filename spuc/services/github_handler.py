@@ -5,9 +5,9 @@ from spuc import utils
 
 def invite_user(user_config, service_config):
     user_config = \
-        utils.check_is_file_and_convert_from_yaml(user_config)['github']
+        utils.convert_config_file(user_config)['github']
     service_config = \
-        utils.check_is_file_and_convert_from_yaml(service_config)['github']
+        utils.convert_config_file(service_config)['github']
     credentials = (service_config['username'], service_config['password'])
 
     response = requests.put(

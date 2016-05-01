@@ -10,8 +10,8 @@ class TestOAuth(unittest.TestCase):
         result = runner.invoke(spuc.main, [
             'gapps',
             'create',
-            '-c/home/david/development/creds/client_secret.json',
-            '-j/home/david/development/jsons/google_user.json'
+            '-c/home/david/development/creds/credentials.yaml',
+            '-u/home/david/development/yamls/google_user.yaml'
         ])
 
         assert result.exit_code == 0
@@ -23,9 +23,21 @@ class TestJira(unittest.TestCase):
         result = runner.invoke(spuc.main, [
             'jira',
             'create',
-            '-c/home/david/development/creds/jira_creds.json',
-            '-j/home/david/development/jsons/jira_user.json',
-            '-o/home/david/development/creds/jira_options.json'
+            '-c/home/david/development/creds/credentials.yaml',
+            '-u/home/david/development/yamls/jira_user.yaml'
+        ])
+
+        assert result.exit_code == 0
+
+
+class TestAWS(unittest.TestCase):
+    def test_user_create_with_correct_input(self):
+        runner = CliRunner()
+        result = runner.invoke(spuc.main, [
+            'aws',
+            'create',
+            '-c/home/david/development/creds/credentials.yaml',
+            '-u/home/david/development/yamls/aws_user.yaml'
         ])
 
         assert result.exit_code == 0

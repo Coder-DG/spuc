@@ -58,7 +58,7 @@ def convert_file_to_yaml(yaml_file_path):
         return yaml.load(yaml_file)
 
 
-def check_is_file_and_convert_from_yaml(path):
+def convert_config_file(path):
     if isinstance(path, basestring) and os.path.isfile(path):
         return convert_file_to_yaml(path)
     return path
