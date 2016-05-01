@@ -27,6 +27,8 @@ class User:
         Returns:
             Credentials, the obtained credential.
         """
+        oauth_credential_path = self.create_credential_json(
+                credential_config_dict)
         home_dir = os.path.expanduser('~')
         credential_dir = os.path.join(home_dir, '.credentials')
         if not os.path.exists(credential_dir):
@@ -40,7 +42,7 @@ class User:
         credentials = store.get()
         if not credentials or credentials.invalid:
             flow = client.flow_from_clientsecrets(
-                    credential_config_dict,
+                    oauth_credential_path,
                     scopes
             )
             flow.user_agent = APPLICATION_NAME
