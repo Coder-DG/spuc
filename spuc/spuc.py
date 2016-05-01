@@ -14,7 +14,8 @@ APPLICATION_NAME = 'SPUC'
 
 class User:
     def __init__(self, credential_config_path=None):
-        self.credential_config_path = credential_config_path
+        self.credential_config = self.convert_file_to_yaml(
+                credential_config_path)
 
 
     def get_credentials(self, credential_config_path, scopes, name_prefix):
