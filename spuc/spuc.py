@@ -90,7 +90,7 @@ def googleapps():
 @click.option('-c', '--credential-config-path',
               help='The path to user credential file.',
               required=True)
-@click.option('-j', '--user-json-path',
+@click.option('-j', '--user-yaml-path',
               help='The path to the user .json file.'
                    ' In this case, a Google user configuration.',
               required=True)
