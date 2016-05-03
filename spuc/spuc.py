@@ -15,9 +15,10 @@ APPLICATION_NAME = 'SPUC'
 
 
 class Spuc:
-    def __init__(self, credential_config_path=None):
+    def __init__(self, credential_config_path=None, user_config_path):
         self.credential_config_dict = self.convert_file_to_yaml(
                 credential_config_path)
+        self.user_config_dict = self.convert_file_to_yaml(user_config_path)
 
     def get_oauth_credentials(self, credential_config_dict,
                               scopes, name_prefix):
