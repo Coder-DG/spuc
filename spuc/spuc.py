@@ -107,8 +107,7 @@ def gapps():
               help='The path to admin credential file.',
               required=True)
 @click.option('-j', '--user-yaml-path',
-              help='The path to the user yaml file.'
-                   ' In this case, a Google user configuration.',
+              help='The path to the user yaml config file.',
               required=True)
 def create_user_google(credential_config_path, user_yaml_path):
     user_google = Spuc(
