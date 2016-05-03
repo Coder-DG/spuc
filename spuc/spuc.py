@@ -54,15 +54,14 @@ class Spuc:
             print('Storing credentials to ' + credential_path)
         return credentials
 
-    def create_in_google(self, user_yaml_path):
+    def create_in_google(self):
         credentials = self.get_oauth_credentials(
                 credential_config_dict=self.credential_config_dict['gapps'],
                 scopes=GOOGLE_SCOPES,
                 name_prefix='google'
         )
 
-        print google.create_user(
-                self.convert_file_to_yaml(user_yaml_path),
+        print google.create_user(self.user_config_dict['gapps'],
                 credentials
         )
 
