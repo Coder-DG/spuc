@@ -106,7 +106,7 @@ def gapps():
 @click.option('-c', '--credential-config-path',
               help='The path to admin credential file.',
               required=True)
-@click.option('-j', '--user-yaml-path',
+@click.option('-u', '--user-yaml-path',
               help='The path to the user yaml config file.',
               required=True)
 def create_user_google(credential_config_path, user_yaml_path):
