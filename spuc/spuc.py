@@ -104,7 +104,7 @@ def gapps():
 
 @gapps.command(name='create')
 @click.option('-c', '--credential-config-path',
-              help='The path to user credential file.',
+              help='The path to admin credential file.',
               required=True)
 @click.option('-j', '--user-yaml-path',
               help='The path to the user yaml file.'
