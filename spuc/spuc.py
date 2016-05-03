@@ -14,7 +14,7 @@ GOOGLE_SCOPES = 'https://www.googleapis.com/auth/admin.directory.user'
 APPLICATION_NAME = 'SPUC'
 
 
-class User:
+class Spuc:
     def __init__(self, credential_config_path=None):
         self.credential_config_dict = self.convert_file_to_yaml(
                 credential_config_path)
@@ -105,7 +105,7 @@ def gapps():
                    ' In this case, a Google user configuration.',
               required=True)
 def create_user_google(credential_config_path, user_yaml_path):
-    user_google = User(
+    user_google = Spuc(
             credential_config_path=credential_config_path
     )
 
