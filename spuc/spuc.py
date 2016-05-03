@@ -85,6 +85,12 @@ class Spuc:
             json.dump(credential_dict, output)
         return file_path
 
+    def create_all(self):
+        print self.create_in_google()
+        print self.create_in_aws()
+        print self.create_in_github()
+        print self.create_in_jira()
+
 
 @click.group()
 def main():
