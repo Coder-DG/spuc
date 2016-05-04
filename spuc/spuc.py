@@ -4,14 +4,10 @@ import os
 import tempfile
 
 import click
-from oauth2client import client
-from oauth2client import file
-from oauth2client import tools
 
 from services import google
 
 GOOGLE_SCOPES = 'https://www.googleapis.com/auth/admin.directory.user'
-APPLICATION_NAME = 'SPUC'
 
 
 class Spuc:
