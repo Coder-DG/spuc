@@ -8,6 +8,7 @@ from oauth2client import file
 from oauth2client import tools
 
 APPLICATION_NAME = 'SPUC'
+GOOGLE_SCOPES = 'https://www.googleapis.com/auth/admin.directory.user'
 
 
 def get_oauth_credentials(self, credential_config_dict,
