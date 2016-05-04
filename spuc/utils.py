@@ -11,8 +11,7 @@ APPLICATION_NAME = 'SPUC'
 GOOGLE_SCOPES = 'https://www.googleapis.com/auth/admin.directory.user'
 
 
-def get_oauth_credentials(self, credential_config_dict,
-                          scopes, name_prefix):
+def get_oauth_credentials(credential_config_dict, scopes, name_prefix):
     """Gets valid user credentials from storage.
 
     If nothing has been stored, or if the stored credentials are invalid,
