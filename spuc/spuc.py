@@ -28,10 +28,15 @@ class Spuc(object):
         return file_path
 
     def create_all(self):
-        print self.create_in_google()
-        print self.create_in_aws()
-        print self.create_in_github()
-        print self.create_in_jira()
+        credentials = self.get_oauth_credentials(
+                credential_config_dict=self.credential_config_dict['gapps'],
+                scopes=GOOGLE_SCOPES,
+                name_prefix='google'
+        )
+
+        print google.create_user(self.user_config_dict['gapps'],
+                                 credentials
+                                 )
 
 
 @click.group()
