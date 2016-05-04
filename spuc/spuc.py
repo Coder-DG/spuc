@@ -3,8 +3,6 @@ import click
 import utils
 from services import google
 
-GOOGLE_SCOPES = 'https://www.googleapis.com/auth/admin.directory.user'
-
 
 class Spuc(object):
     def __init__(self, credential_config_path, user_config_path):
