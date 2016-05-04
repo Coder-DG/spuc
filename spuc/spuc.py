@@ -10,7 +10,7 @@ from services import google
 GOOGLE_SCOPES = 'https://www.googleapis.com/auth/admin.directory.user'
 
 
-class Spuc:
+class Spuc(object):
     def __init__(self, credential_config_path, user_config_path):
         self.credential_config_dict = self.convert_file_to_yaml(
                 credential_config_path)
