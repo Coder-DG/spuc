@@ -13,7 +13,7 @@ class Spuc(object):
     def create_all(self):
         credentials = utils.get_oauth_credentials(
                 credential_config_dict=self.credential_config_dict['gapps'],
-                scopes=GOOGLE_SCOPES,
+                scopes=utils.GOOGLE_SCOPES,
                 name_prefix='google'
         )
 
