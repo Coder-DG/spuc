@@ -1,4 +1,6 @@
 import os
+import json
+import tempfile
 
 from oauth2client import client
 from oauth2client import file
@@ -40,3 +42,11 @@ def get_oauth_credentials(self, credential_config_dict,
         credentials = tools.run_flow(flow, store, flags)
         print('Storing credentials to ' + credential_path)
     return credentials
+
+
+def create_credential_json(credential_dict):
+    tmp_dir_path = tempfile.mkdtemp()
+    file_path = tmp_dir_path + 'spuc_secret.json'
+    with open(file_path, 'w') as output:
+        json.dump(credential_dict, output)
+    return file_path

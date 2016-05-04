@@ -1,6 +1,4 @@
 import yaml
-import json
-import tempfile
 
 import click
 
@@ -19,13 +17,6 @@ class Spuc(object):
     def convert_file_to_yaml(self, yaml_file_path):
         with open(str(yaml_file_path)) as yaml_file:
             return yaml.load(yaml_file)
-
-    def create_credential_json(self, credential_dict):
-        tmp_dir_path = tempfile.mkdtemp()
-        file_path = tmp_dir_path + 'spuc_secret.json'
-        with open(file_path, 'w') as output:
-            json.dump(credential_dict, output)
-        return file_path
 
     def create_all(self):
         credentials = utils.get_oauth_credentials(
