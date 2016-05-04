@@ -27,9 +27,11 @@ def gapps():
               help='The path to the user yaml config file.',
               required=True)
 def create_user_google(credential_config_path, user_yaml_path):
-    user_google = Spuc(
-            credential_config_path,
-            user_yaml_path
+    create_user(
+            utils.convert_file_to_yaml(user_yaml_path)['gapps'],
+            utils.get_oauth_credentials(
+                    utils.convert_file_to_yamlcredential_config_path)[
+                'gapps'],
+            utils.GOOGLE_SCOPES,
+            'google'
     )
-
-    user_google.create_in_google()
