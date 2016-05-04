@@ -19,7 +19,7 @@ def get_oauth_credentials(self, credential_config_dict,
     Returns:
         Credentials, the obtained credential.
     """
-    oauth_credential_path = self.create_credential_json(
+    oauth_credential_path = create_credential_json(
             credential_config_dict)
     home_dir = os.path.expanduser('~')
     credential_dir = os.path.join(home_dir, '.credentials')
