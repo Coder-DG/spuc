@@ -4,6 +4,7 @@ import tempfile
 
 import click
 
+import utils
 from services import google
 
 GOOGLE_SCOPES = 'https://www.googleapis.com/auth/admin.directory.user'
@@ -27,7 +28,7 @@ class Spuc(object):
         return file_path
 
     def create_all(self):
-        credentials = self.get_oauth_credentials(
+        credentials = utils.get_oauth_credentials(
                 credential_config_dict=self.credential_config_dict['gapps'],
                 scopes=GOOGLE_SCOPES,
                 name_prefix='google'
