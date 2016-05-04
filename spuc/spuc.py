@@ -27,24 +27,3 @@ class Spuc(object):
 @click.group()
 def main():
     pass
-
-
-@main.group()
-def gapps():
-    pass
-
-
-@gapps.command(name='create')
-@click.option('-c', '--credential-config-path',
-              help='The path to admin credential file.',
-              required=True)
-@click.option('-u', '--user-yaml-path',
-              help='The path to the user yaml config file.',
-              required=True)
-def create_user_google(credential_config_path, user_yaml_path):
-    user_google = Spuc(
-            credential_config_path,
-            user_yaml_path
-    )
-
-    user_google.create_in_google()
