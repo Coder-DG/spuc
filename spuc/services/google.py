@@ -3,6 +3,8 @@ import click
 import httplib2
 from googleapiclient import discovery
 
+from spuc import utils
+
 
 def create_user(user_yaml, credentials):
     http = credentials.authorize(httplib2.Http())
