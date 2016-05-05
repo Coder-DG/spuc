@@ -5,14 +5,14 @@ from services import google
 
 
 class Spuc(object):
-    def __init__(self, credential_config_path, user_config_path):
-        self.credential_config_dict = utils.convert_file_to_yaml(
-                credential_config_path)
+    def __init__(self, config_path, user_config_path):
+        self.config_dict = utils.convert_file_to_yaml(
+                config_path)
         self.user_config_dict = utils.convert_file_to_yaml(user_config_path)
 
     def create_all(self):
         credentials = utils.get_oauth_credentials(
-                credential_config_dict=self.credential_config_dict['gapps'],
+                credential_config_dict=self.config_dict['gapps'],
                 scopes=utils.GOOGLE_SCOPES,
                 name_prefix='google'
         )
