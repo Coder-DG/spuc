@@ -1,7 +1,6 @@
 #IntelliJ Stuff
 *.iml
-
-# TODO address this
+.idea
 *.pyc
 
 #pip install -e
