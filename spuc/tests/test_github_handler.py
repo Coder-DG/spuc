@@ -60,3 +60,13 @@ class GitHubHandlerCase(unittest.TestCase):
             return {}
 
         return {'github': ''}
+
+    def test_no_github_service_config_username(self):
+        user_config = {'github': ''}
+        service_config = {'github': {'password': ''}}
+        self.assertRaises(
+                utils.SpucException, github_handler.invite_user,
+                user_config=user_config,
+                service_config=service_config
+
+        )
