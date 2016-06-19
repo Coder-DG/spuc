@@ -23,17 +23,36 @@ class GitHubHandlerCase(unittest.TestCase):
                 service_config=None
         )
 
-    @mock.patch('utils.convert_config_file')
+    @mock.patch('spuc.utils.convert_config_file')
     def test_missing_user_config_key(self, mock_convert_config_file_util):
-        mock_convert_config_file_util.return_value = \
+        mock_convert_config_file_util.side_effect = \
+            self.return_bad_user_config
+
+        self.assertRaises(
+                utils.SpucException,
+                github_handler.invite_user,
+                user_config='user_config',
+                service_config='service_config'
+
+        )
+
+    def return_bad_user_config(self, config):
+        if config == 'user_config':
+            return {}
+
+        return {'github': ''}
+
+    @mock.patch('spuc.utils.convert_config_file')
+    def test_missing_service_config_key(self, mock_convert_config_file_util):
+        mock_convert_config_file_util.side_effect = \
             self.return_bad_service_config
 
         self.assertRaises(
                 utils.SpucException,
-                github_handler.invite_user(
-                        user_config='',
-                        service_config='service_config'
-                )
+                github_handler.invite_user,
+                user_config='user_config',
+                service_config='service_config'
+
         )
 
     def return_bad_service_config(self, config):
