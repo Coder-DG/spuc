@@ -29,7 +29,7 @@ class GitHubHandlerCase(unittest.TestCase):
             self.return_bad_user_config
 
         self.assertRaises(
-                utils.SpucException,
+                KeyError,
                 github_handler.invite_user,
                 user_config='user_config',
                 service_config='service_config'
@@ -48,7 +48,7 @@ class GitHubHandlerCase(unittest.TestCase):
             self.return_bad_service_config
 
         self.assertRaises(
-                utils.SpucException,
+                KeyError,
                 github_handler.invite_user,
                 user_config='user_config',
                 service_config='service_config'
@@ -65,7 +65,7 @@ class GitHubHandlerCase(unittest.TestCase):
         user_config = {'github': ''}
         service_config = {'github': {'password': ''}}
         self.assertRaises(
-                utils.SpucException,
+                KeyError,
                 github_handler.invite_user,
                 user_config=user_config,
                 service_config=service_config
@@ -76,7 +76,7 @@ class GitHubHandlerCase(unittest.TestCase):
         user_config = {'github': {'username': ''}}
         service_config = {'github': {'password': '', 'username': ''}}
         self.assertRaises(
-                utils.SpucException,
+                KeyError,
                 github_handler.invite_user,
                 user_config=user_config,
                 service_config=service_config
