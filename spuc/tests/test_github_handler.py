@@ -82,3 +82,14 @@ class GitHubHandlerCase(unittest.TestCase):
                 service_config=service_config
 
         )
+
+    def test_no_github_user_config_username(self):
+        user_config = {'github': {'organization': ''}}
+        service_config = {'github': {'password': '', 'username': ''}}
+        self.assertRaises(
+                KeyError,
+                github_handler.invite_user,
+                user_config=user_config,
+                service_config=service_config
+
+        )
