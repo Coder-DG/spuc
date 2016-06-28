@@ -94,3 +94,22 @@ class GitHubHandlerCase(unittest.TestCase):
                 service_config=service_config
 
         )
+
+    @mock.patch('requests.put')
+    def test_response_with_correct_input(self, mock_put):
+        user_config = {'github': {'organization': 'org', 'username': 'uname'}}
+        service_config = {'github': {'username': 'uname', 'password': 'pwd'}}
+        mock_put.return_value = MagicMock(status_code=200, text='txt')
+
+        github_handler.invite_user(
+                user_config=user_config,
+                service_config=service_config
+        )
+        mock_put.assert_called_with(
+                'https://api.github.com/orgs/'
+                '{0}/memberships/{1}'.format(
+                        'org',
+                        'uname'
+                ),
+                auth=('uname', 'pwd')
+        )
