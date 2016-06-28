@@ -1,6 +1,7 @@
 import unittest
 
 import mock
+from mock.mock import MagicMock
 
 from spuc import utils
 from spuc.services import github_handler
