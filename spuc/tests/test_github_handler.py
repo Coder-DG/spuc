@@ -113,3 +113,42 @@ class GitHubHandlerCase(unittest.TestCase):
                 ),
                 auth=('uname', 'pwd')
         )
+
+    @mock.patch('requests.put')
+    def test_bad_responses(self, mock_put):
+        user_config = {'github': {'organization': 'org', 'username': 'uname'}}
+        service_config = {'github': {'username': 'uname', 'password': 'pwd'}}
+
+        # Bad status_code
+        mock_put.return_value = MagicMock(status_code=199, text='txt')
+        self.assertRaises(
+                RuntimeError,
+                github_handler.invite_user,
+                user_config=user_config,
+                service_config=service_config
+        )
+
+        mock_put.return_value = MagicMock(status_code=300, text='txt')
+        self.assertRaises(
+                RuntimeError,
+                github_handler.invite_user,
+                user_config=user_config,
+                service_config=service_config
+        )
+
+        # Bad reponse text
+        mock_put.return_value = MagicMock(status_code=200, text=None)
+        self.assertRaises(
+                RuntimeError,
+                github_handler.invite_user,
+                user_config=user_config,
+                service_config=service_config
+        )
+
+        mock_put.return_value = MagicMock(status_code=200, text='')
+        self.assertRaises(
+                RuntimeError,
+                github_handler.invite_user,
+                user_config=user_config,
+                service_config=service_config
+        )
