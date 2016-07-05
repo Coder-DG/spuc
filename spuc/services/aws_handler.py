@@ -19,6 +19,10 @@ def create_user(user_config, service_config):
         raise exception
 
     client = boto3.client('iam', **aws_service_config)
+    return _create_user_with_client(client, user_config)
+
+
+def _create_user_with_client(client, user_config):
     return [
         client.create_user(
                 UserName=user_config['UserName']
