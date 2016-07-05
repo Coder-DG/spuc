@@ -120,3 +120,29 @@ class AwsHandlerCase(unittest.TestCase):
                 service_config=service_config
 
         )
+
+    @mock.patch('spuc.spuc.aws_handler._create_user_with_client')
+    @mock.patch('boto3.client')
+    def test_correct_input(self, mock_boto3, mock_create_user_with_client):
+        user_config = {
+            'aws': {
+                'UserName': 'user_name',
+                'Password': 'password'
+            }
+        }
+        service_config = {
+            'aws': {
+                'aws_secret_access_key': 'AKIA',
+                'aws_access_key_id': 'AKIA'
+            }
+        }
+        mock_boto3.return_value = []
+
+        aws_handler.create_user(
+                user_config=user_config,
+                service_config=service_config
+        )
+
+        mock_boto3.assert_called_with('iam', **service_config['aws'])
+
+        mock_create_user_with_client.assert_called_with([], user_config['aws'])
