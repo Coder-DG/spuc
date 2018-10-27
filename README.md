@@ -1,12 +1,10 @@
 # SPUC - Cross Platform User Creator
-====================================
 This tool can create users in different platforms given credential configurations
  and user configurations.
 
-##Installation
-##Usage
+## Usage
 
-###Quickstart
+### Quickstart
 
 This example will show how to create a user in Google Apps.
 
