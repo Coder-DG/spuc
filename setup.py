@@ -47,7 +47,7 @@ setup(
         "botocore==1.4.13",
         "click===6.6",
         "google-api-python-client==1.5.0",
-        "httplib2==0.9.2",
+        "httplib2==0.18.0",
         "jira==1.0.3",
         "oauth2client==2.0.2",
         "requests==2.9.1",
